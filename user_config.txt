@@ -1,0 +1,3 @@
+gam_amount=5
+username=Player
+player_bal=1000
