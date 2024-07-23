@@ -1,7 +1,6 @@
 from engine.engine import combination
 import platform
-import ctypes  # Is needed to get screen resolution (Windows)
-import subprocess  # Is needed to get screen resolution (Linux)
+import ctypes
 import pygame
 import random
 import time
@@ -17,9 +16,8 @@ class GameObjects:
         user32 = ctypes.windll.user32
         SCREENSIZE = user32.GetSystemMetrics(0), user32.GetSystemMetrics(1)
     else:
-        # For Linux
-        output = subprocess.Popen('xrandr | grep "\*" | cut -d" " -f4',shell=True, stdout=subprocess.PIPE).communicate()[0]
-        SCREENSIZE = tuple(map(int, output.split()[0].split(b'x')))
+        # For Linux/MacOS
+        SCREENSIZE = (1920, 1080)
     
     # Constants
     DEBUG_MODE = False
@@ -101,10 +99,6 @@ class GamblerInfo:
                  curr_state=None) -> None:
         if is_player:
             pass
-        elif random.randint(1, 100) == 1:
-            image = AiObjects.JAAMES_ICON
-            name = "James"
-            bal = 10000
         else:
             new_person = AiObjects.ais_data.pop()
             AiObjects.ais_data.insert(0, new_person)
